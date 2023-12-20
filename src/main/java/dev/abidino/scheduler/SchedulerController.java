@@ -1,9 +1,6 @@
 package dev.abidino.scheduler;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/scheduler")
@@ -18,5 +15,15 @@ public class SchedulerController {
     @PostMapping
     void addTask(@RequestBody TaskDefinition taskDefinition) {
         schedulerService.addTask(taskDefinition);
+    }
+
+    @DeleteMapping("/{id}")
+    void cancelTask(@PathVariable String id) {
+        schedulerService.cancelTask(id);
+    }
+
+    @PutMapping("/{id}")
+    void updateTask(@PathVariable String id, @RequestBody TaskDefinition taskDefinition) {
+        schedulerService.updateTask(id, taskDefinition);
     }
 }
